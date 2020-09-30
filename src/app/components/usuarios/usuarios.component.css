@@ -1,0 +1,33 @@
+img {
+    width: 150px;
+}
+
+#spinner {
+    margin: 0 auto;
+}
+
+#new {
+    font-size: 15px;
+    border-radius: 30px;
+}
+
+#virtual {
+    height: 400px;
+    overflow-x: hidden;
+    text-align: center;
+}
+
+#cabecera {
+    background-color: lightgray;
+    text-align: center;
+}
+
+.container {
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+#filtro {
+    border-radius: 2px;
+}

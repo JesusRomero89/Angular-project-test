@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="jumbotron mt-3">
+    <form [formGroup]="formulario" (ngSubmit)="guardarCambios()" method="POST" enctype="multipart/form-data">
+      <div class="form-group row">
+        <input class="form-control" type="text" value="{{ usuario.id }}" readonly>
+      </div>
+      <div class="form-group row">
+        <input class="form-control" [ngClass]="{'invalid': formulario.controls.nombre.invalid, 'valid': formulario.controls.nombre.valid}" type="text" formControlName="nombre" placeholder="nombre" value="{{ usuario.nombre }}">
+      </div>
+      <div class="form-group row">
+        <input class="form-control" [ngClass]="{'invalid': formulario.controls.apellidos.invalid, 'valid': formulario.controls.apellidos.valid}" type="text" formControlName="apellidos" placeholder="apellidos" value="{{ usuario.apellidos }}" />
+      </div>
+      <div class="form-group row">
+        <input class="form-control" [ngClass]="{'invalid': formulario.controls.email.invalid, 'valid': formulario.controls.email.valid}" type="text" formControlName="email" placeholder="email" value="{{ usuario.email }}" />
+      </div>
+      <div class="form-group row">
+        <input class="form-control" [ngClass]="{'invalid': formulario.controls.password.invalid, 'valid': formulario.controls.password.valid}" type="password" formControlName="password" placeholder="password" value="{{ usuario.password }}" />
+      </div>
+      <div class="form-group row">
+        <select class="custom-select" formControlName="rol">
+          <option disabled>-Selecciona rol-</option>
+          <option value="1">Administrador</option>
+          <option value="2">Usuario</option>
+        </select>
+      </div>
+      <div class="form-group row">
+        <input type="file" name="imagen" id="imagen" formControlName="imagen" (change)="fileChangeEvent($event)">
+        <br>
+        <div class="ml-5" id="imgPerfil">
+          <button type="button" id="close" (click)="borrarImagen()">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </button>
+          <br>
+          <img [src]="imageSrc" *ngIf="imageSrc">
+        </div>
+      </div>
+      <div class="form-group row">
+        <button class="btn btn-warning m-2" (click)="back()"><i class="fa fa-undo" aria-hidden="true"></i></button>
+        <button class="btn btn-success m-2" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+img {
+    width: 100px;
+}
+
+.valid, .touched {
+    border: 1px solid green;
+}
+
+.invalid {
+    border: 1px solid red;
+}
+
+.jumbotron {
+    background-color: white;
+    border: 1px solid black;
+}
+
+#imgPerfil {
+    height: 50px;
+}
+
+#close {
+    float: right;
+}

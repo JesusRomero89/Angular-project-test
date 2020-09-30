@@ -1,0 +1,21 @@
+.valid {
+    border: 1px solid green;
+}
+
+.jumbotron {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    width: 30%;
+    height: 50%;
+}
+
+form {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.fa.fa-user-circle {
+    font-size: 100px;
+    margin: 0 auto;
+}

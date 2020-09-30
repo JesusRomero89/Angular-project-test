@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+.fondo {
+    background: rgb(34,193,195);
+    /* background: linear-gradient(235deg, rgba(34,193,195,1) 0%, rgba(253,45,221,1) 99%); */
+    background: linear-gradient(235deg, #5241E8 25%, #5572FF 25%, #4189E8 25%, #47C7FF 25%);
+}
+
+.full-height {
+    height: 100vh;
+}
+
+html {
+    overflow-y: hidden !important;
+}

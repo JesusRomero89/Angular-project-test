@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <nav *ngIf="usuario" class="navbar navbar-expand-lg navbar-light bg-light">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" *ngIf="administrador" [routerLink]="['/usuarios']" [routerLinkActive]="['active']">
+              <i class="fa fa-users" style="margin-right: 2px;"></i>Usuarios
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/productos']" [routerLinkActive]="['active']">
+              <i class="fa fa-cubes" style="margin-right: 2px;" aria-hidden="true"></i>Productos
+            </a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <img src="{{ urlResource }}/{{ imagen }}" id="perfil">
+          <div *ngIf="usuario" class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{ usuario }}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" [routerLink]="['/perfil', id]">Editar perfil</a>
+              <a type="button" class="dropdown-item" href="login" (click)="cerrarSesion()">Cerrar sesión</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </nav>
+    <div class="fondo full-height pt-3" id="root">
+      <router-outlet></router-outlet>
+    </div>
+  </body>
+</html>

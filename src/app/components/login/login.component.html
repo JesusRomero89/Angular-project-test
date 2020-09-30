@@ -1,0 +1,18 @@
+<div class="login full-height pt-5">
+  <div class="jumbotron">
+    <form [formGroup]="formulario" (ngSubmit)="login()" novalidate="novalidate">
+      <div class="form-group row">
+        <i class="fa fa-user-circle" aria-hidden="true"></i>
+      </div>
+      <div class="form-group row">
+        <input class="form-control" [ngClass]="{'invalid': formulario.controls.email.invalid, 'valid': formulario.controls.email.valid}" type="text" formControlName="email" placeholder="email">
+      </div>
+      <div class="form-group row">
+        <input class="form-control" [ngClass]="{'invalid': formulario.controls.password.invalid, 'valid': formulario.controls.password.valid}" type="password" formControlName="password" placeholder="password" />
+      </div>
+      <div class="">
+        <button class="btn btn-dark" type="submit">Login</button>
+      </div>
+    </form>
+  </div>
+</div>

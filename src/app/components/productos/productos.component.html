@@ -1,0 +1,123 @@
+<div class="container mt-3" *ngIf="tablaCargada">
+  <div class="row p-2">
+    <input type="text" name="filtro" id="filtro" placeholder="Busqueda" [(ngModel)]="refFilter">
+  </div>
+  <div class="row pt-2" id="cabecera">
+    <div class="col">
+      <p>
+        <b>Id</b>
+      </p>
+    </div>
+    <div class="col">
+      <p>
+        <b>Referencia</b>
+      </p>
+    </div>
+    <div class="col">
+      <p>
+        <b>Stock</b>
+      </p>
+    </div>
+    <div class="col">
+      <p>
+        <b>Opciones</b>
+      </p>
+    </div>
+  </div>
+  <!-- virtual scroll -->
+  <cdk-virtual-scroll-viewport [itemSize]="50" minBufferPx="200" maxBufferPx="400" id="virtual">
+    <div *cdkVirtualFor="let item of productos | filter:refFilter">
+      <div class="row mb-2 mt-2">
+        <div class="col">
+          <p>{{ item.id }}</p>
+        </div>
+        <div class="col">
+          <p>{{ item.referencia }}</p>
+        </div>
+        <div class="col">
+          {{ item.unidades }}
+        </div>
+        <div class="col">
+          <button class="btn btn-primary ml-2" data-toggle="modal" data-target="#modalVer" (click)="seleccionarProducto(item.id, item.referencia, item.descripcion, item.unidades, item.precio, item.imagen)">
+            <i class="fa fa-eye" aria-hidden="true"></i>
+          </button>
+          <button class="btn btn-success ml-2" [routerLink]="['/editar-producto', item.id]">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          </button>
+          <button class="btn btn-danger ml-2" data-toggle="modal" data-target="#modalBorrar" (click)="seleccionarProducto(item.id)">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </cdk-virtual-scroll-viewport>
+  <!-- boton add producto -->
+  <div class="row pb-2">
+    <div class="col">
+      <button class="btn btn-warning mt-3" id="new" type="button" [routerLink]="['/editar-producto']">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="container" *ngIf="!tablaCargada">
+  <div class="row">
+    <div class="col">
+      <div class="spinner-border" role="status"></div>
+    </div>
+  </div>
+</div>
+<!-- Modal borrar producto-->
+<div class="modal fade" id="modalBorrar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Aviso</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>¿Desea eliminar el producto?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          No
+        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="eliminarProducto()">
+          Si
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal mostrar datos usuario -->
+<div class="modal fade" id="modalVer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Datos de producto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card mb-3" style="max-width: 540px;">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img src="{{urlResources}}/{{productoSeleccionado.imagen}}" class="card-img">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">{{productoSeleccionado.referencia}}</h5>
+                <p class="card-text">{{productoSeleccionado.descripcion}}</p>
+                <p class="card-text">Precio / unidad: <b>{{productoSeleccionado.precio}}</b></p>
+                <p class="card-text">Stock: <b>{{productoSeleccionado.unidades}}</b></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

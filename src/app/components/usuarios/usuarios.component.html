@@ -1,0 +1,129 @@
+<div class="container" *ngIf="tablaCargada">
+  <div class="row p-2">
+    <input type="text" name="filtro" id="filtro" placeholder="Busqueda" [(ngModel)]="mailFilter">
+  </div>
+  <div class="row pt-2" id="cabecera">
+    <div class="col">
+      <p>
+        <b>Id</b>
+      </p>
+    </div>
+    <div class="col">
+      <p>
+        <b>Email</b>
+      </p>
+    </div>
+    <div class="col">
+      <p>
+        <b>Rol</b>
+      </p>
+    </div>
+    <div class="col">
+      <p>
+        <b>Opciones</b>
+      </p>
+    </div>
+  </div>
+  <!-- virtual scroll -->
+  <cdk-virtual-scroll-viewport [itemSize]="50" minBufferPx="200" maxBufferPx="400" id="virtual">
+    <div *cdkVirtualFor="let item of usuarios | filter:mailFilter">
+      <div class="row pt-3 mb-1">
+        <div class="col">
+          {{ item.id }}
+        </div>
+        <div class="col">
+          <p>{{ item.email }}</p>
+        </div>
+        <div class="col" *ngIf="item.rol == 1">
+          <p>Administrador</p>
+        </div>
+        <div class="col" *ngIf="item.rol == 2">
+          <p>Usuario</p>
+        </div>
+        <div class="col">
+          <button class="btn btn-primary mr-1" data-toggle="modal" data-target="#modalVer" (click)="seleccionarUsuario(item.id, item.email, item.nombre, item.apellidos, item.imagen, item.rol)">
+            <i class="fa fa-eye" aria-hidden="true"></i>
+          </button>
+          <button class="btn btn-success mr-1" [routerLink]="['/perfil', item.id]">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          </button>
+          <button class="btn btn-danger" data-toggle="modal" data-target="#modalBorrar" (click)="seleccionarUsuario(item.id, item.email)">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </cdk-virtual-scroll-viewport>
+  <!-- boton add usuario -->
+  <div class="row pb-2">
+    <div class="col">
+      <button class="btn btn-warning" id="new" type="button" [routerLink]="['/perfil']">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</div>
+<!-- spinner -->
+<div class="container" *ngIf="!tablaCargada">
+  <div class="row">
+    <div class="col">
+      <div class="spinner-border" role="status"></div>
+    </div>
+  </div>
+</div>
+<!-- Modal borrar usuario-->
+<div class="modal fade" id="modalBorrar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Aviso</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>¿Desea eliminar el usuario?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          No
+        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="eliminarUsuario()">
+          Si
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal mostrar datos usuario -->
+<div class="modal fade" id="modalVer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Datos de usuario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card mb-3" style="max-width: 540px;">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img src="{{urlResources}}/{{userSeleccionado.imagen}}" class="card-img">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">{{userSeleccionado.nombre}} {{userSeleccionado.apellidos}}</h5>
+                <p class="card-text">{{userSeleccionado.email}}</p>
+                <p class="card-text">
+                  <small class="text-muted" *ngIf="userSeleccionado.rol == 1">Administrador</small>
+                  <small class="text-muted" *ngIf="userSeleccionado.rol == 2">Usuario</small>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
